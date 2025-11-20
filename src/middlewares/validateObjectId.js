@@ -5,7 +5,7 @@ const validateObjectId = (req, res, next) => {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     const error = new Error("Некорректный идентификатор");
-    error.status = 404;
+    error.status = 400;
     return next(error);
   }
 
