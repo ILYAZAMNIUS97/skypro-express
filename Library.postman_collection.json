@@ -1,0 +1,389 @@
+﻿{
+  "info": {
+    "_postman_id": "9a9b39f3-6f8a-4e25-8e25-7c8ac6e97c61",
+    "name": "Library API Homework",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"201 Created\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Body has id\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('id');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"ван етров\",\n  \"email\": \"ivan.petrov@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{api_url}}/users",
+              "host": ["{{api_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get user by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"User id matches\", function () {",
+                  "    pm.expect(pm.response.json().id).to.eql(pm.environment.get('user_id'));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{api_url}}/users/{{user_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Name updated\", function () {",
+                  "    pm.expect(pm.response.json().name).to.eql('ван бновлённый');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"ван бновлённый\",\n  \"email\": \"ivan.petrov@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{api_url}}/users/{{user_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"204 No Content\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{api_url}}/users/{{user_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "List books",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Response is array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.eql(true);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{api_url}}/books",
+              "host": ["{{api_url}}"],
+              "path": ["books"]
+            }
+          }
+        },
+        {
+          "name": "Create book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"201 Created\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Has title\", function () {",
+                  "    pm.expect(pm.response.json()).to.have.property('title');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"реступление и наказание\",\n  \"author\": \". остоевский\",\n  \"year\": 1866\n}"
+            },
+            "url": {
+              "raw": "{{api_url}}/books",
+              "host": ["{{api_url}}"],
+              "path": ["books"]
+            }
+          }
+        },
+        {
+          "name": "Get book by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Book id matches\", function () {",
+                  "    pm.expect(pm.response.json().id).to.eql(pm.environment.get('book_id'));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{api_url}}/books/{{book_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["books", "{{book_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Year updated\", function () {",
+                  "    pm.expect(pm.response.json().year).to.eql(1867);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"реступление и наказание\",\n  \"author\": \". остоевский\",\n  \"year\": 1867\n}"
+            },
+            "url": {
+              "raw": "{{api_url}}/books/{{book_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["books", "{{book_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"204 No Content\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{api_url}}/books/{{book_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["books", "{{book_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Loans",
+      "item": [
+        {
+          "name": "Get user loans",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Loans array\", function () {",
+                  "    pm.expect(Array.isArray(pm.response.json())).to.eql(true);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{api_url}}/users/{{user_id}}/loans",
+              "host": ["{{api_url}}"],
+              "path": ["users", "{{user_id}}", "loans"]
+            }
+          }
+        },
+        {
+          "name": "Borrow book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"201 Created\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Loan contains book\", function () {",
+                  "    pm.expect(pm.response.json().bookId).to.eql(pm.environment.get('book_id'));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": \"{{book_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{api_url}}/users/{{user_id}}/loans",
+              "host": ["{{api_url}}"],
+              "path": ["users", "{{user_id}}", "loans"]
+            }
+          }
+        },
+        {
+          "name": "Return book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"204 No Content\", function () {",
+                  "    pm.response.to.have.status(204);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{api_url}}/users/{{user_id}}/loans/{{book_id}}",
+              "host": ["{{api_url}}"],
+              "path": ["users", "{{user_id}}", "loans", "{{book_id}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
